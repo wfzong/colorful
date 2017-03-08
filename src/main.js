@@ -8,11 +8,11 @@ new Vue({
   el: '#app',
   router:initRouter,
   template:
-  `<div>
+  `
 	  <initApp/>
-	</div>
   `,
   components: {
   	initApp:initApp
   }
+
 })
