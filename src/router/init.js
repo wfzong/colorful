@@ -9,17 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-	{
-		path: '/artList', 
-		component: artList,
-		props:{message:"info"}
-	},
-	{
-		path: '/profile',
-		component: profile
-	}
+      name: 'colorEles',
+      component: colorEles
+    }
   ]
 })
