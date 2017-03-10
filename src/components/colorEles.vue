@@ -2,7 +2,7 @@
 	<div class="colorful" v-bind:style="{'min-height':fullHeight+'px'}">
 		<div class="colorInfo">
 			<h2>挑战中</h2>
-			<p>剩余时间：{{totalTime}}</p>
+			<p>剩余时间：{{totalTime}}，当前等级：{{level}}</p>
 		</div>
 		<div class="colorEleBox"  v-bind:style="{height:fullWidth+'px',width:fullWidth+'px'}">
 			<color-box v-on:youGotMe="doTheNext" :items="eles"></color-box>
@@ -31,6 +31,7 @@ function getSimilarColor(color,index){
 	将字符串转换成整数，处理、判断后返回字符串
 */
 function getAddedStr(str,num){
+	num = parseInt(num*0.5);//乘以系数，增加难度
 	num = num > 0 ? num : 1;
 
 	var x = parseInt(str,16)+num;
@@ -91,7 +92,8 @@ export default {
 			maxEle:6,//最多色块个数 6x6 -> 36
 			countDown:'',//倒计时句柄
 			colorLibrary:['31b70d','0571c4','7e05c4','c1200b'],//色库，每次生成时从中任取一值
-			eles:[]
+			eles:[],
+			running:false
 
 		}
 	},
@@ -104,7 +106,9 @@ export default {
 			this.fullWidth = document.documentElement.clientWidth>750?750:document.documentElement.clientWidth
 		},
 		doTheNext:function(){
-			//console.log("do the next")
+			
+			if (!this.running) {return}//默认游戏未开始，倒计时提示开始！
+
 			this.level++
 			if (this.initEle < this.maxEle){
 				this.initEle++
@@ -130,6 +134,8 @@ export default {
 				clearInterval(self.countDown)
 			}
 		},1000)
+
+		
 		window.addEventListener('resize', this.handleResize)
 	},
 	beforeDestroy: function () {
