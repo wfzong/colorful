@@ -1,40 +1,147 @@
 <template>
-	<div class="colorful" v-bind:style="{height:fullHeight+'px'}">
+	<div class="colorful" v-bind:style="{'min-height':fullHeight+'px'}">
 		<div class="colorInfo">
 			<h2>挑战中</h2>
-			<p>colorEle{{fullWidth}}-{{fullHeight}}</p>
+			<p>剩余时间：{{totalTime}}</p>
 		</div>
-		<div class="colorEleBox" v-bind:style="{height:fullWidth+'px',width:fullWidth+'px'}">
-		hahaha
+		<div class="colorEleBox"  v-bind:style="{height:fullWidth+'px',width:fullWidth+'px'}">
+			<color-box v-on:youGotMe="doTheNext" :items="eles"></color-box>
 		</div>
+
 	</div>
 </template>
 
 
 <script>
+import colorBox from './colorBox.vue'
+
+
+
+/*
+	根据给定颜色:color、权重:index
+	返回相近色
+*/
+function getSimilarColor(color,index){
+	var R = getAddedStr(color.substr(0,2),index);
+	var G = getAddedStr(color.substr(2,2),index);
+	var B = getAddedStr(color.substr(4,2),index);
+	return R+G+B;
+}
+/*
+	将字符串转换成整数，处理、判断后返回字符串
+*/
+function getAddedStr(str,num){
+	num = num > 0 ? num : 1;
+
+	var x = parseInt(str,16)+num;
+	x = x > 255 ? 255 : x;
+	x = x < 16 ? 16 : x;
+	return x.toString(16);
+}
+
+
+/*	generateBox 生成game box
+
+	count:初始化box的个数
+	color:默认色值
+	level:当前游戏等级
+	complexRate:最高难度
+*/
+
+function generateBox(count,color,level,complexRate){
+	console.log(level)
+	var getactiveColorIndex =  Math.floor(Math.random()*color.length)
+	var activeColor = color.slice(getactiveColorIndex,getactiveColorIndex+1)
+	activeColor = activeColor.toString()
+
+	console.log(activeColor)
+
+	var boxInfo = Array.apply(null,{length:count}).map(function(){
+		return {
+			color:activeColor,
+			isMe:false
+		}
+	})
+
+	var special = {
+		color:getSimilarColor(activeColor,(complexRate-level)),
+		isMe:true
+	}
+
+	var specialIndex = Math.floor(Math.random()*count)
+	
+	boxInfo.splice(specialIndex,1,special)
+	
+	console.log(boxInfo)
+
+	return boxInfo;
+}
+
+
 export default {
 	name: 'colorful',
 	data:function() {
 		return {
 			fullHeight : document.documentElement.clientHeight,
-			fullWidth : document.documentElement.clientWidth>750?750:document.documentElement.clientWidth
+			fullWidth : document.documentElement.clientWidth>750?750:document.documentElement.clientWidth,
+			level:0,//初始化等级
+			complexRate:50,//最高难度
+			totalTime:15,//单轮游戏时长
+			initEle:2,//初始化色块个数 2x2 -> 4
+			maxEle:6,//最多色块个数 6x6 -> 36
+			countDown:'',//倒计时句柄
+			colorLibrary:['31b70d','0571c4','7e05c4','c1200b'],//色库，每次生成时从中任取一值
+			eles:[]
+
 		}
 	},
-	mounted: function(){
-		window.addEventListener('resize', this.handleResize)
-	},
-	beforeDestroy: function () {
-		window.removeEventListener('resize', this.handleResize)
+	components:{
+		colorBox //注册组件
 	},
 	methods:{
 		handleResize:function(event){
 			this.fullHeight = document.documentElement.clientHeight
 			this.fullWidth = document.documentElement.clientWidth>750?750:document.documentElement.clientWidth
+		},
+		doTheNext:function(){
+			//console.log("do the next")
+			this.level++
+			if (this.initEle < this.maxEle){
+				this.initEle++
+			}
+
+			this.eles = generateBox(this.initEle*this.initEle , this.colorLibrary , this.level+1 , this.complexRate)	
+
+		},
+		gotMeIn:function(msg){
+			alert("you GOT me!"+msg)
 		}
 	},
 	computed:{
-		eleSizeInfo:function(){}
-
+		eleSizeInfo:function(){},
+	},
+	mounted: function(){
+		var self = this
+		this.eles = generateBox(this.initEle*this.initEle , this.colorLibrary , this.level+1 , this.complexRate)//初始化，生成box
+		
+		this.countDown = setInterval(function(){
+			self.totalTime = self.totalTime--
+			if (self.totalTime == 0) {
+				clearInterval(self.countDown)
+			}
+		},1000)
+		window.addEventListener('resize', this.handleResize)
+	},
+	beforeDestroy: function () {
+		window.removeEventListener('resize', this.handleResize)
+	},
+	directives: {
+		ok: {
+			inserted:function(el){
+				console.log("YES! you inserted me!")
+				console.log(el)
+			}
+		}
 	}
 }
 </script>
@@ -58,6 +165,6 @@ export default {
 	line-height: 2em;
 }
 .colorful .colorEleBox {
-	background: #333;
+	background: #666;
 }
 </style>
