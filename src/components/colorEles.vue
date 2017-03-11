@@ -93,7 +93,7 @@ export default {
 			countDown:'',//倒计时句柄
 			colorLibrary:['31b70d','0571c4','7e05c4','c1200b'],//色库，每次生成时从中任取一值
 			eles:[],
-			running:false
+			running:true
 
 		}
 	},
