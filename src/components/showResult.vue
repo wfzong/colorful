@@ -10,7 +10,7 @@
 			</div>
 
 			<div class="count-body">
-				{{re.description}}
+				{{re.description}}<br />
 				最终得分：{{level}}
 			</div>
 
@@ -67,13 +67,13 @@ new brickjs.MShare({
             wxShareObj : {
                 timeline : {
                     "imgUrl": "http://m.vogue.com.cn/mfeature/colorful/assets/wxShareIcon.jpg",
-                    "sUrl": "",
+                    "sUrl": window.location.origin + window.location.pathname,
                     "desc": "我的情色指数是："+ this.level+"，约你来战~~",
                     "title": "看你有多色！"
                 },
                 message : {
                     "imgUrl": "http://m.vogue.com.cn/mfeature/colorful/assets/wxShareIcon.jpg",
-                    "sUrl": "",
+                    "sUrl": window.location.origin + window.location.pathname,
                     "desc": "我的情色指数是："+ this.level+"，约你来战~~",
                     "title": "看你有多色！"
                 }

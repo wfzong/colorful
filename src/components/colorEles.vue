@@ -9,7 +9,7 @@
 			<color-box v-on:youGotMe="doTheNext" :items="eles" :eleWidth="fullWidth" :initEle="initEle"></color-box>
 		</div>
 
-		<init-count-down v-if="showCount" @down="start" :initCount="3">
+		<init-count-down v-if="showCount" @down="start" :initCount="5">
 			<h3 slot="header">请找出不同颜色的色块！</h3>
 			<span slot="body">游戏倒计时：</span>
 		</init-count-down>
@@ -94,7 +94,7 @@ export default {
 			storeStatus:{
 				level:0,
 				complexRate:50,
-				totalTime:20,
+				totalTime:30,
 				initEle:2,
 				maxEle:6
 			},
@@ -137,6 +137,8 @@ export default {
 
 		},
 		restart:function(){
+			ga('send', 'event', 'colorful', 'play', 'restart', this.level)
+
 			this.level = this.storeStatus.level
 			this.complexRate = this.storeStatus.complexRate
 			this.totalTime = this.storeStatus.totalTime 
