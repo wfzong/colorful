@@ -10,7 +10,7 @@
 .wrapper {
 	max-width:750px;
 	margin:0 auto;
-	background:#CCC;
+	background:#990066;
 	font-size:12px;
 }
 
