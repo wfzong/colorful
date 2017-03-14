@@ -60,13 +60,9 @@ function getAddedStr(str,num){
 */
 
 function generateBox(count,color,level,complexRate){
-	console.log(level)
 	var getactiveColorIndex =  Math.floor(Math.random()*color.length)
 	var activeColor = color.slice(getactiveColorIndex,getactiveColorIndex+1)
 	activeColor = activeColor.toString()
-
-	console.log(activeColor)
-
 	var boxInfo = Array.apply(null,{length:count}).map(function(){
 		return {
 			color:activeColor,
@@ -137,7 +133,6 @@ export default {
 
 		},
 		restart:function(){
-			ga('send', 'event', 'colorful', 'play', 'restart', this.level)
 
 			this.level = this.storeStatus.level
 			this.complexRate = this.storeStatus.complexRate
@@ -159,9 +154,6 @@ export default {
 
 			this.countDown = setInterval(function(){
 				self.totalTime--
-
-				console.log(self.totalTime)
-
 				if (self.totalTime == 0) {
 					clearInterval(self.countDown)
 					self.running = false
@@ -198,8 +190,6 @@ export default {
 	directives: {
 		ok: {
 			inserted:function(el){
-				console.log("YES! you inserted me!")
-				console.log(el)
 			}
 		}
 	}

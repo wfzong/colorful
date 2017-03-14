@@ -39,48 +39,6 @@ export default {
 		}
 	},
 	mounted:function(){
-		ga('send', 'event', 'colorful', 'play', 'gotLevel', this.level)
-
-
-new brickjs.MShare({
-            site: "1", //1、vogue 2、self 3、gq 4、adstyle 5、cnt 6、feature(专题)
-            catalog: "", //栏目id
-            sUrl: "", //分享地址
-            title: '',
-            imgUrl: "",
-            imgWidth: "315",
-            imgHeight: "315",
-            desc: '',
-            appKey: {
-                tsina: "2107309089"
-            },
-            ralateUid: '1655526104',
-            wxGuide: {//不用
-                imgUrl: '',
-                width: 0, //0
-                height: 0,
-                style: {
-                    right: 0,
-                    top: 0
-                }
-            },
-            wxShareObj : {
-                timeline : {
-                    "imgUrl": "http://m.vogue.com.cn/mfeature/colorful/assets/wxShareIcon.jpg",
-                    "sUrl": window.location.origin + window.location.pathname,
-                    "desc": "我的情色指数是："+ this.level+"，约你来战~~",
-                    "title": "看你有多色！"
-                },
-                message : {
-                    "imgUrl": "http://m.vogue.com.cn/mfeature/colorful/assets/wxShareIcon.jpg",
-                    "sUrl": window.location.origin + window.location.pathname,
-                    "desc": "我的情色指数是："+ this.level+"，约你来战~~",
-                    "title": "看你有多色！"
-                }
-            }
-        })
-
-
 
 	},
 	methods:{},

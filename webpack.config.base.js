@@ -58,7 +58,8 @@ var conf = {
   		alwaysWriteToDisk: true	//for HtmlWebpackHarddiskPlugin
   	}),
   	new HtmlWebpackHarddiskPlugin()	//执行写入
-  ]
+  ],
+  devtool: '#eval-source-map'
 };
 
 module.exports = conf;

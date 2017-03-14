@@ -40,7 +40,7 @@ export default {
 		},1000)
 	},
 	watch:{
-		innerCount(val){
+		innerCount:function(val){
 			if (val == 0) {
 				this.$emit("down")
 			}

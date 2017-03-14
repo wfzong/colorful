@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node devServer",
-    "build": "webpack --progress --color"
+    "build": "cross-env NODE_ENV=production webpack --progress --color --hide-modules"
   },
   "author": "wfzong",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^3.2.3",
     "css-loader": "^0.26.2",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.10.1",
