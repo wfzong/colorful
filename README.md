@@ -2,7 +2,6 @@
 基本VUE实现的色块识别游戏
 
 ###安装.开发
-    git clone https://github.com/wfzong/colorful.git
     npm install
     npm run dev
 
